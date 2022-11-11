@@ -14,6 +14,7 @@
               class="px-4 py-3 rounded-lg border border-gray-100 mt-1"
               type="email"
               placeholder="example@gmail.com"
+              v-model="email"
             />
           </label>
         </div>
@@ -31,12 +32,14 @@
         </div>
         <div class="row">
           <button
+            v-if="!isPending"
             class="py-3 text-center w-full bg-primary text-white font-bold rounded-lg"
             type="submit"
           >
             Sign In
           </button>
           <button
+            v-else
             class="py-3 text-center w-full bg-gray-800 text-white font-bold rounded-lg cursor-not-allowed"
             type="button"
             disabled
@@ -47,8 +50,8 @@
       </form>
 
       <!-- Start error -->
-      <div class="text-left mt-4 text-red">
-        <span>error </span>
+      <div v-if="error" class="text-left mt-4 text-red">
+        <span> {{ error }} </span>
       </div>
 
       <!-- Start direction -->
@@ -66,9 +69,31 @@
   </div>
 </template>
 <script>
+import { ref } from "vue";
+import { useSignIn } from "@/composables/useSignIn";
+import { useRouter } from "vue-router";
+
 export default {
   setup() {
-    // const {error,isPending, signUp }  = useSignUp()
+    const router = useRouter();
+
+    const email = ref("");
+    const password = ref("");
+
+    const { error, isPending, signIn } = useSignIn();
+
+    async function onSubmit() {
+      await signIn(email.value, password.value);
+      if (!error.value) router.push({ name: "home", params: {} });
+    }
+
+    return {
+      email,
+      password,
+      error,
+      isPending,
+      onSubmit,
+    };
   },
 };
 </script>

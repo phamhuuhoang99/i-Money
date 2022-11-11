@@ -4,7 +4,7 @@ import { projectAuth } from "@/configs/firebase";
 const error = ref(null);
 const isPending = ref(false);
 
-async function signUp(email, password) {
+async function signUp(email, password, fullName) {
   isPending.value = true;
   error.value = null;
 
@@ -14,10 +14,16 @@ async function signUp(email, password) {
       password
     );
     if (!res) throw new Error("Could not create a new user");
+
+    console.log(fullName);
+
+    await res.user.updateProfile({ displayName: fullName });
+
+    console.log(res);
     return res;
   } catch (err) {
-    console.log(error);
-    throw new Error(err.message);
+    console.log(err.message);
+    error.value = err.message;
   } finally {
     isPending.value = false;
   }

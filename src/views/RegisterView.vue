@@ -46,10 +46,12 @@
           <button
             class="py-3 text-center w-full bg-primary text-white font-bold rounded-lg"
             type="submit"
+            v-if="!isPending"
           >
             Sign Up
           </button>
           <button
+            v-else
             class="py-3 text-center w-full bg-gray-800 text-white font-bold rounded-lg cursor-not-allowed"
             type="button"
             disabled
@@ -60,8 +62,8 @@
       </form>
 
       <!-- Start error -->
-      <div class="text-left mt-4 text-red">
-        <span>error </span>
+      <div v-if="error" class="text-left mt-4 text-red">
+        <span>{{ error }} </span>
       </div>
 
       <!-- Start direction -->
@@ -85,18 +87,15 @@ import { useSignUp } from "@/composables/useSignUp";
 export default {
   setup() {
     const { error, isPending, signUp } = useSignUp();
+
     const fullName = ref("");
     const email = ref("");
     const password = ref("");
 
     async function onSubmit() {
-      console.log("test", fullName, email, password);
-
-      await signUp(email.value, password.value);
+      await signUp(email.value, password.value, fullName.value);
     }
     return { fullName, email, password, error, isPending, onSubmit };
-
-    // const {, signUp }  = useSignUp()
   },
 };
 </script>
