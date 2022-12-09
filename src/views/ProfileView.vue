@@ -11,8 +11,10 @@
             class="w-full h-auto object-cover"
           />
         </div>
-        <div class="text-bold text-2xl text-primary mt-3">user.displayName</div>
-        <p class="font-semibold text-gray-400 mt-1">user.email</p>
+        <div class="text-bold text-2xl text-primary mt-3">
+          {{ user.displayName }}
+        </div>
+        <p class="font-semibold text-gray-400 mt-1">{{ user.email }}</p>
       </div>
     </div>
   </div>
@@ -56,58 +58,17 @@
 </template>
 <script>
 import { reactive } from "vue";
-// import { PROFILE_OPTIONS } from "@/constants";
-// import { useUser } from "@/composables/userUser";
+import { PROFILE_OPTIONS } from "@/constants";
+import { useUser } from "@/composables/useUser";
 export default {
   setup() {
-    const profileOptions = reactive([
-      {
-        name: "My Wallet",
-        icon: "t2ico-wallet",
-        route: {
-          name: "Home",
-          params: {},
-        },
-      },
-      {
-        name: "Tools",
-        icon: "t2ico-ticket-star",
-        route: {
-          name: "Home",
-          params: {},
-        },
-      },
-      {
-        name: "Privacy",
-        icon: "t2ico-lock",
-        route: {
-          name: "Home",
-          params: {},
-        },
-      },
-      {
-        name: "About",
-        icon: "t2ico-info-square",
-        route: {
-          name: "Home",
-          params: {},
-        },
-      },
-      {
-        name: "Logout",
-        icon: "t2ico-logout",
-        route: {
-          name: "Home",
-          params: {},
-        },
-      },
-    ]);
-    // const profileOptions = reactive(PROFILE_OPTIONS);
-    // const { getUser } = useUser();
-    // const { user } = getUser();
+    // const profileOptions = reactive();
+    const profileOptions = reactive(PROFILE_OPTIONS);
+    const { getUser } = useUser();
+    const { user } = getUser();
     return {
       profileOptions,
-      // user,
+      user,
     };
   },
 };

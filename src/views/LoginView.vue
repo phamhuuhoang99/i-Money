@@ -84,7 +84,7 @@ export default {
 
     async function onSubmit() {
       await signIn(email.value, password.value);
-      if (!error.value) router.push({ name: "home", params: {} });
+      if (!error.value) router.push({ name: "Profile", params: {} });
     }
 
     return {

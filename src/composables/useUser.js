@@ -8,7 +8,6 @@ projectAuth.onAuthStateChanged(function (_user) {
 });
 
 function getUser() {
-  console.log(user);
   return { user };
 }
 

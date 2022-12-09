@@ -17,7 +17,6 @@ async function signUp(email, password, fullName) {
 
     await res.user.updateProfile({ displayName: fullName });
 
-    console.log(res);
     return res;
   } catch (err) {
     console.log(err.message);
