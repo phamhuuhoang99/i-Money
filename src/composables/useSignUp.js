@@ -15,8 +15,6 @@ async function signUp(email, password, fullName) {
     );
     if (!res) throw new Error("Could not create a new user");
 
-    console.log(fullName);
-
     await res.user.updateProfile({ displayName: fullName });
 
     console.log(res);
